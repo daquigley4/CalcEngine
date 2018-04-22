@@ -6,15 +6,15 @@ public class MathEquation {
     private char opCode;
     private double result;
 
-    MathEquation() {
+    public MathEquation() {
 
     }
 
-    MathEquation(char opCode) {
+    public MathEquation(char opCode) {
         this.opCode = opCode;
     }
 
-    MathEquation(char opCode, double leftVal, double rightVal) {
+    public MathEquation(char opCode, double leftVal, double rightVal) {
         this(opCode);
         this.leftVal = leftVal;
         this.rightVal = rightVal;

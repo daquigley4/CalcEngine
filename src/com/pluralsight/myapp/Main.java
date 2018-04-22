@@ -3,20 +3,62 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.pluralsight.calcengine;
+package com.pluralsight.myapp;
+
+
+import com.pluralsight.calcengine.Adder;
+import com.pluralsight.calcengine.CalculateBase;
+import com.pluralsight.calcengine.CalculateHelper;
+import com.pluralsight.calcengine.Divider;
+import com.pluralsight.calcengine.DynamicHelper;
+import com.pluralsight.calcengine.InvalidStatementException;
+import com.pluralsight.calcengine.MathEquation;
+import com.pluralsight.calcengine.MathProcessing;
+import com.pluralsight.calcengine.Multiplier;
+import com.pluralsight.calcengine.PowerOf;
+import com.pluralsight.calcengine.Subtractor;
+
+import java.util.Arrays;
 
 public class Main {
     public Main() {
     }
 
     public static void main(String[] args) {
-//    useMathEquation();
-//    useCalculateBase();
+//        useMathEquation();
+//        useCalculateBase();
+//        useCalculateHelper();
+
 //        double[] leftVal = new double[]{100.0d, 25.0d, 225.0d, 11.0d};
 //        double[] rightVal = new double[]{50.0d, 92.0d, 17.0d, 3.0d};
 //        char[] opCodes = new char[]{'d', 'a', 's', 'm'};
 //        double[] results = new double[opCodes.length];
 
+        String[] statements = {
+                "add 25.0 92.0", // 25.0 + 92.0 = 117.0
+                "power 5.0 2.0", // 5.0 ^ 2.0 = 25.0
+                "subtract 225.0 17.0", // 225.0 - 17.0 = 208.0
+                "divide 100.0 25.0", // 100.0 / 25.0 = 4.0
+                "multiply 11.0 3.0" //11.0 * 3.0 = 33.0
+        };
+
+        DynamicHelper helper = new DynamicHelper(new MathProcessing[] {
+                new Adder(),
+                new PowerOf(),
+                new Subtractor(),
+                new Divider(),
+                new Multiplier()
+        });
+
+        for (String statement : statements) {
+            String output = helper.process(statement);
+            System.out.println(output);
+        }
+
+
+    }
+
+    static void useCalculateHelper() {
         String[] statements = {
                 "add 1.0",
                 "add xx 25.0",
@@ -32,10 +74,9 @@ public class Main {
             try {
                 helper.process(statement);
                 System.out.println(helper);
-            }
-            catch (InvalidStatementException e){
+            } catch (InvalidStatementException e) {
                 System.out.println(e.getMessage());
-                if(e.getCause() != null) {
+                if (e.getCause() != null) {
                     System.out.println("   Original Exception: " + e.getCause().getMessage());
                 }
             }
